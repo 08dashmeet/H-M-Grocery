@@ -1,0 +1,69 @@
+<catalogue>
+             <items>
+                   <item>
+                  <id>12635</id>
+                  <name>LUX Bath Soap</name>
+                   <uom>gm</uom>                           <!-- Unit Of Measure -->
+                   <unitSize>10</unitSize>
+                <unitPrice>
+                     <amount>12.00</amount>
+                     <currency>INR</currency>              <!-- Currency alpha3code -->
+                </unitPrice>
+                   <quantity>
+                       <stock>100</stock>
+                      <measure>unit</measure>           <!-- measures could be unit, kg, gm etc.-->
+                     </quantity>
+                  </item>
+
+
+                <item>
+                      <id>03823</id>
+                      <name>Adidas Deodorant</name>
+                       <uom>ml</uom>  
+                       <unitSize>150</unitSize>
+                    <unitPrice>
+                         <amount>450.00</amount>
+                         <currency>INR</currency>  
+                    </unitPrice>
+                       <quantity>
+                           <stock>100</stock>
+                          <measure>unit</measure>
+                     </quantity>
+                </item>
+
+
+                   <item>
+                      <id>72373</id>
+                      <name>Himalaya Neem FaceWash</name>
+                       <uom>gm</uom>  
+                       <unitSize>12</unitSize>
+                    <unitPrice>
+                         <amount>110.00</amount>
+                         <currency>INR</currency>  
+                    </unitPrice>
+                       <quantity>
+                           <stock>140</stock>
+                          <measure>Unit</measure>
+                      </quantity>
+                    </item>
+
+
+                    <item>
+                      <id>2382</id>
+                      <name>Vasiline Body Lotion</name>
+                       <uom>ml</uom>  
+                       <unitSize>400</unitSize>
+                    <unitPrice>
+                         <amount>235.00</amount>
+                         <currency>INR</currency>  
+                    </unitPrice>
+                       <quantity>
+                           <stock>500</stock>
+                          <measure>Unit</measure>
+                        </quantity>
+                    </item>
+
+            </items>
+</catalogue>
+
+
