@@ -215,17 +215,11 @@ object HM_Grocery extends App{
         var p = readLine()
         if (p == password) {
           println("Welcome to Admin part")
-          //  obj.Add_Cart()
-          //  obj.update_toCart
+
           println("Discounts on various Items -:")
           println("1-: Get 60% discount in Lux Soap")
           println("2-: Get 55% discount in Adidas Deodarant")
-          //        println("Choose the Discount or print 0")
-          //         no = readInt()
-          //        hm = Map("LUX Bath Soap"-> 1,  "Adidas Deodorant"->2,"Himalayan Neem FaceWash"->3,"Vasiline Body Lotion"->4)
-          //          obj.Cart_discount
-          //          obj.Check_Cart
-          //          obj.Order_Summary
+          
               }
 
 
