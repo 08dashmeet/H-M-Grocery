@@ -1,5 +1,5 @@
 package HM_Grocery_Store
-
+import scala.util.control.Breaks._
 import scala.collection.mutable.{ArrayBuffer, ListBuffer}
 import scala.xml._
 
@@ -10,7 +10,7 @@ object HM_Grocery extends App{
 
   case class unitprice(amount : Double,currency:String)
   case class Quantity(stock :Int,measure:String)
-  var total_bill=0.0
+
   def show_unitprice(n:Node) :unitprice = {
     var amount = (n\\"amount").text.toDouble
      var currency = (n \\ "currency").text
@@ -44,57 +44,78 @@ object HM_Grocery extends App{
 
                          // Story 3
 
+ var itemname = ListBuffer[String]()
+  var iname = ListBuffer[String]()
+  val item_quan = ListBuffer[Int]()
+  var sum = ListBuffer[Double]()
+  var li = List[(String,Int)]()
+  var n =0
+  var  total_bill = 0.0
 
-  case class Item_toCart(product:Array[String],Q :Array[Int])
 
    def Add_Cart(): Unit = {
 
      println("How many items you wanna buy-: ")
-     val n = readInt()
-     var itemname = ListBuffer[String]()
-     var iname = new Array[String](n)
-     val item_quan = new Array[Int](n)
-     var sum = new Array[Double](n)
+     n = readInt()
 
      for (i <- 0 until n) {
        println("Choose any Item from Catalogue -: ")
-       // itemname(i) = readLine()
-       iname(i) = readLine()
+       iname += readLine()
 
        println("Enter the Quantity of Item -: ")
-       item_quan(i) = readInt()
+       item_quan += readInt()
 
+      for (j <- 0 until 4) {
+        if (iname(i).equalsIgnoreCase(item(j).name)) {
+          itemname += ("Item Name-: " + iname(i) + ", " + "Price-: " + item(j).unitprice + " ,Quantity -: ").toString()
 
-       for (j <- 0 until 4) {
-         if (iname(i) == item(j).name) {
-           itemname += ("Item Name-: " + item(j).name + ", " + "Price-: " + item(j).unitprice + " ,Quantity -: ").toString()
-           var total = (item(j).unitprice).split(" ")
-           sum(i) = (total(0).toDouble) * item_quan(i)
-           total_bill += sum(i)
-         }
-       }
-       //             println("Do you wanna Delete this item y/n")
-       //              var userans = readLine()
-       //              if(userans == "y"){
-       ////                println("Enter the name of item to be deleted")
-       ////                var del = readLine()
-       ////                if(del== iname(i)){
-       //                  itemname -= itemname(i)
-       //
-       //              }
-
+           }
+     }
 
      }
 
-     val li = (itemname, item_quan, sum).zipped.toList             // print items in cart
+     li = (itemname, item_quan).zipped.toList             // print items in cart
      println("Products added in Cart are -: ")
      li.foreach(println)
+ }
 
-      for(i <- 0 until n) {
+  def Check_Cart: Unit ={
+  println("Do you want to Checkout y/n")                 // Checkout_Cart function
+  val ans = readLine()
+  if(ans=="y"){
+    println("Your Items in Cart Are -:")
+    li.foreach(println)
+   var l= li.length
+    for(i <- 0 until l){
 
-        println("Do you wanna update your Cart y/n") // Update the Cart
+      for (j <- 0 until 4) {
+        if (iname(i)==(item(j).name)) {
+          var total = (item(j).unitprice).split(" ")
+          sum += (total(0).toDouble) * item_quan(i)
+           total_bill = total_bill+ sum(i)
+        }
+      }
+    }
+    println("The total Amount to be paid is-: "+ total_bill)
+  }
+}
+
+
+  def Order_Summary: Unit ={                             // order_summary function
+    println("Your Order Summery is ")
+    println("Items Purchased are -")
+    li.foreach(println)
+    println("The total Amount to be paid is-: "+ total_bill)
+
+  }
+
+
+  def update_toCart: Unit = {                         // Update_Cart function
+    breakable {
+      for (i <- 0 until n) {
+        println("Do you wanna update your Cart Delete/Update Quantity/No")
         val usr = readLine()
-        if (usr == "y") {
+        if (usr == "Update Quantity") {
           println("Enter the product name to be Updated from Cart")
           val update_name = readLine()
           for (i <- 0 until n) {
@@ -104,42 +125,31 @@ object HM_Grocery extends App{
               val new_item_quan = readInt()
               item_quan(i) = new_item_quan
             }
-
-            for (j <- 0 until 4) {
-              if (iname(i) == item(j).name) {
-                itemname += ("Item Name-: " + item(j).name + ", " + "Price-: " + item(j).unitprice + " ,Quantity -: ").toString()
-                var total = (item(j).unitprice).split(" ")
-                sum(i) = (total(0).toDouble) * item_quan(i)
-                total_bill += sum(i)
-              }
-            }
-
-
           }
 
-          println("Updated Cart is -:")
-          val li = (itemname, item_quan, sum).zipped
-          li.toList.foreach(println)
 
         }
+        else if (usr == "Delete") {
+          println("Enter the name of item to be deleted")
+          var del = readLine()
+          for (i <- 0 until n) {
+            if (del == iname(i)) {
+              itemname.remove(i)
+              item_quan.remove(i)
+            }
+          }
+        }
 
+        else {
+          break
+        }
 
       }
-         println("Do you want to Checkout y/n")                 // Checkout Cart
-          val ans = readLine()
-         if(ans=="y"){
-          println("Your Items in Cart Are -:")
-           li.foreach(println)
-          println("The total Amount to be paid is-:"+total_bill)
-         }
-
-       println("Your Order Summery is ")                               // Order Summary
-        println("Items Purchased are -")
-          li.foreach(println)
-       println("The total Amount paid is-:"+ total_bill)
- }
-
-
+      println("Updated Cart is -:")
+      li = (itemname, item_quan).zipped.toList
+      li.foreach(println)
+    }
+  }
   val xml_file = XML.loadFile("/home/dashmeet/IdeaProjects/scala practice/src/HM_Grocery_Store/HM_Data.xml")
   var item =  (xml_file \\ "item").map(showItems)
   println("                        Welcome to H&M Grocery Store                      ")
@@ -148,4 +158,7 @@ object HM_Grocery extends App{
   item.foreach(println)
 
    Add_Cart
+  update_toCart
+  Check_Cart
+  Order_Summary
 }
