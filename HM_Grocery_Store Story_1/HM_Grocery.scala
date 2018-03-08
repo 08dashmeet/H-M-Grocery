@@ -9,7 +9,7 @@ import scala.xml._
 
 class HM_Grocery  {
   case class Items(id : Int,name : String,uom :String,unitsize:Int,unitprice:String,quantity:String)
-
+  case class Category(Category_id:String,Category_name:String)
   case class unitprice(amount : Double,currency:String)
   case class Quantity(stock :Int,measure:String)
 
@@ -40,9 +40,17 @@ class HM_Grocery  {
       case List(Quantity(stock :Int,measure:String)) => stock + " " + measure
       case _ => "No quantity given"
     }
-    Items(id,name,uom,unitsize, unit_price,quantity)
+             Items(id,name,uom,unitsize, unit_price,quantity)
 
   }
+
+  def Show_Cat(n:Node): (String,String)={
+    var cat_id = (n \\"@id").text
+    var cat_name = (n  \\"@name").text
+
+    (cat_id ,cat_name)
+  }
+
 
                          // Story 3
 
@@ -55,6 +63,7 @@ class HM_Grocery  {
   var  total_bill = 0.0
   var discount=0.0
   var ans=0.0
+  var usr_category=0
 
 
    def Add_Cart(): Unit = {
@@ -69,10 +78,9 @@ class HM_Grocery  {
        println("Enter the Quantity of Item -: ")
        item_quan += readInt()
 
-      for (j <- 0 until 4) {
-        if (iname(i).equalsIgnoreCase(item(j).name)) {
+      for (j <- 0 to 9) {
+        if (iname(i).equalsIgnoreCase(item(j).name) && (item(j).id/100)== usr_category){
           itemname += ("Item Name-: " + iname(i) + ", " + "Price-: " + item(j).unitprice + " ,Quantity -: ").toString()
-
            }
      }
 
@@ -82,36 +90,32 @@ class HM_Grocery  {
      println("Products added in Cart are -: ")
      li.foreach(println)
  }
-
-
   def Cart_discount: Unit ={
-                                                                        // Cart_discount function
-      var l= li.length
-      for(i <- 0 until l) {
-        for(j <- 0 until 4) {
-           if (iname(i)==(item(j).name)) {
-              var total = (item(j).unitprice).split(" ")
+    // Cart_discount function
+    var l= li.length
+    for(i <- 0 until l) {
+      for(j <- 0 to 9) {
+        if (iname(i)==(item(j).name)) {
+          var total = (item(j).unitprice).split(" ")
 
-             if (HM_Grocery.no == HM_Grocery.hm.get(iname(i)).get) {
-                   println(HM_Grocery.no + HM_Grocery.hm.get(iname(i)).get )
-                HM_Grocery.no match {
-                  case 1 => discount = (total(0).toDouble) * item_quan(i) * 0.60
-                  case 2 => discount = (total(0).toDouble) * item_quan(i) * 0.55
-                  case _ => discount = 0.0
-                }
+          if (HM_Grocery.no == HM_Grocery.hm.get((item(j).id/100)).get) {
 
-              }
-             
-             
-             
+            HM_Grocery.no match {
+              case 1 => discount = discount+ (total(0).toDouble) * item_quan(i) * 0.60
+              case 2 => discount = discount+ (total(0).toDouble) * item_quan(i) * 0.40
+              case _ => discount = 0.0
+            }
 
-           }
+          }
+
         }
+      }
     }
 
   }
 
-  def Check_Cart: Unit ={                          //original
+
+  def Check_Cart: Unit ={
   println("Do you want to Checkout y/n")                 // Checkout_Cart function
   val ans = readLine()
   if(ans=="y"){
@@ -120,7 +124,7 @@ class HM_Grocery  {
      var l= li.length
 
     for(i <- 0 until l){
-      for (j <- 0 until 4) {
+      for (j <- 0 to 9) {
         if (iname(i)==(item(j).name)) {
           var total = (item(j).unitprice).split(" ")
           sum += (total(0).toDouble) * item_quan(i)
@@ -128,7 +132,7 @@ class HM_Grocery  {
         }
       }
     }
-
+    println(total_bill)
     println("The total Amount to be paid is-: "+(total_bill-discount))
   }
 }
@@ -190,23 +194,35 @@ class HM_Grocery  {
 
                // Story 6&7
 
+    // display the Catalogue items
 
 
   val xml_file = XML.loadFile("/home/dashmeet/IdeaProjects/scala practice/src/HM_Grocery_Store/HM_Data.xml")
-  var item =  (xml_file \\ "item").map(showItems)
+  var item =  (xml_file \\ "item").map(showItems).toList
+  var cat_item =  (xml_file \\ "category").map(Show_Cat).toList
   println("                        Welcome to H&M Grocery Store                      ")
 
-  println("H&M's Catalogue -: ")
-  item.foreach(println)
+
+  println("Categories are-:")
+  cat_item.foreach(println)
+  println(" Choose Any Category -:")
+   usr_category = readInt()
+  var i =0
+  for(i <- 0 to 9){
+    if(((item(i).id)/100) == usr_category){
+
+        println(item(i))
+    }
+
+  }
 
 }
 
 
-object HM_Grocery extends App{
+     object HM_Grocery extends App{
 
-       //var obj =  new HM_Grocery
        var no = 0
-     var hm=Map[String,Int]()
+     var hm=Map[Int,Int]()
      val password = "1234"
       println("Login As a Admin Or User")
       var a = readLine()
@@ -216,12 +232,26 @@ object HM_Grocery extends App{
         if (p == password) {
           println("Welcome to Admin part")
 
-          println("Discounts on various Items -:")
-          println("1-: Get 60% discount in Lux Soap")
-          println("2-: Get 55% discount in Adidas Deodarant")
-          
+          println("Discounts on Different Categories -:")
+                  println("1-: 60% discount on Beauty & Hygiene")
+                  println("2-: 40% discount on Fruits & Vegetable")
+                       println("Choose the Discount or print 0")
+                     no = readInt()
+                    hm = Map(1-> 1,2 -> 2, 3 -> 3, 4 -> 4,5 ->5)
+          println("Do u wanna continue As User")
+          var p= readLine()
+          if(p=="y") {
+            var obj = new HM_Grocery
+            obj.Add_Cart()
+            obj.update_toCart
+            obj.Cart_discount
+            obj.Check_Cart
+            obj.Order_Summary
+          }
+          else{
+            println("Byeee!!!!!!!")
+          }
               }
-
 
           else
           {
@@ -230,18 +260,11 @@ object HM_Grocery extends App{
 
         }
         else if (a == "User") {
-          var obj = new HM_Grocery
-          obj.Add_Cart()
-          obj.update_toCart
-          println("Discounts on various Items -:")
-          println("1-: Get 60% discount in Lux Soap")
-          println("2-: Get 55% discount in Adidas Deodarant")
-          println("Choose the Discount or print 0")
-          no = readInt()
-          hm = Map("LUX Bath Soap" -> 1, "Adidas Deodorant" -> 2, "Himalayan Neem FaceWash" -> 3, "Vasiline Body Lotion" -> 4)
-          obj.Cart_discount
-          obj.Check_Cart
-          obj.Order_Summary
+          var obj1 = new HM_Grocery
+          obj1.Add_Cart()
+          obj1.Cart_discount
+          obj1.Check_Cart
+          obj1.Order_Summary
         }
 
 
