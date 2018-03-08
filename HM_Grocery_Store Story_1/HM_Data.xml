@@ -1,7 +1,9 @@
-<catalogue>
+  <catalogue>
+
+    <category id = "1"  name ="Beauty and Hygiene" >
              <items>
                    <item>
-                  <id>12635</id>
+                  <id>101</id>
                   <name>LUX Bath Soap</name>
                    <uom>gm</uom>                           <!-- Unit Of Measure -->
                    <unitSize>10</unitSize>
@@ -17,7 +19,7 @@
 
 
                 <item>
-                      <id>03823</id>
+                      <id>102</id>
                       <name>Adidas Deodorant</name>
                        <uom>ml</uom>  
                        <unitSize>150</unitSize>
@@ -30,40 +32,159 @@
                           <measure>unit</measure>
                      </quantity>
                 </item>
+                  </items>
+        </category>
+
+      <category id = "2"  name ="Fruits and Vegetable" >
+                 <items>
+                     <item>
+                    <id>201</id>
+                    <name>Apple</name>
+                     <uom>Kg</uom>                           <!-- Unit Of Measure -->
+                     <unitSize>50</unitSize>
+                  <unitPrice>
+                       <amount>60.00</amount>
+                       <currency>INR</currency>              <!-- Currency alpha3code -->
+                  </unitPrice>
+                     <quantity>
+                         <stock>100</stock>
+                        <measure>Kg</measure>           <!-- measures could be unit, kg, gm etc.-->
+                 </quantity>
+             </item>
 
 
-                   <item>
-                      <id>72373</id>
-                      <name>Himalayan Neem FaceWash</name>
-                       <uom>gm</uom>  
-                       <unitSize>12</unitSize>
-                    <unitPrice>
-                         <amount>110.00</amount>
-                         <currency>INR</currency>  
-                    </unitPrice>
-                       <quantity>
-                           <stock>140</stock>
-                          <measure>Unit</measure>
-                      </quantity>
-                    </item>
+                     <item>
+                    <id>202</id>
+                    <name>Grapes</name>
+                     <uom>Kg</uom>                           <!-- Unit Of Measure -->
+                     <unitSize>45</unitSize>
+                  <unitPrice>
+                       <amount>45.00</amount>
+                       <currency>INR</currency>              <!-- Currency alpha3code -->
+                  </unitPrice>
+                     <quantity>
+                         <stock>768</stock>
+                        <measure>Kg</measure>           <!-- measures could be unit, kg, gm etc.-->
+                  </quantity>
+
+                  </item>
+                 </items>
+      </category>
+
+      <category id = "3"  name ="FoodGrains" >
+          <items>
+                             <item>
+                            <id>301</id>
+                            <name>Wheat</name>
+                             <uom>Kg</uom>                           <!-- Unit Of Measure -->
+                             <unitSize>100</unitSize>
+                          <unitPrice>
+                               <amount>18.00</amount>
+                               <currency>INR</currency>              <!-- Currency alpha3code -->
+                          </unitPrice>
+                             <quantity>
+                                 <stock>1000</stock>
+                                <measure>Kg</measure>           <!-- measures could be unit, kg, gm etc.-->
+          </quantity>
+          </item>
 
 
-                    <item>
-                      <id>2382</id>
-                      <name>Vasiline Body Lotion</name>
-                       <uom>ml</uom>  
-                       <unitSize>400</unitSize>
-                    <unitPrice>
-                         <amount>235.00</amount>
-                         <currency>INR</currency>  
-                    </unitPrice>
-                       <quantity>
-                           <stock>500</stock>
-                          <measure>Unit</measure>
-                        </quantity>
-                    </item>
+                             <item>
+                            <id>302</id>
+                            <name> Basmati Rice</name>
+                             <uom>Kg</uom>  
+                             <unitSize>200</unitSize>
+                          <unitPrice>
+                               <amount>55.00</amount>
+                               <currency>INR</currency>  
+                          </unitPrice>
+                             <quantity>
+                                 <stock>2000</stock>
+                                <measure>Kg</measure>
+          </quantity>
 
-            </items>
-</catalogue>
+          </item>
+          </items>
+      </category>
+
+
+      <category id = "4"  name ="Oil And Masala" >
+          <items>
+                             <item>
+                            <id>401</id>
+                            <name>Hair and Care Oil</name>
+                             <uom>gm</uom>  
+                             <unitSize>10</unitSize>
+                          <unitPrice>
+                               <amount>90.00</amount>
+                               <currency>INR</currency>  
+                          </unitPrice>
+                             <quantity>
+                                 <stock>100</stock>
+                                <measure>unit</measure>
+          </quantity>
+          </item>
+
+
+                             <item>
+                            <id>402</id>
+                            <name>Everest Masala</name>
+                             <uom>gm</uom>  
+                             <unitSize>50</unitSize>
+                          <unitPrice>
+                               <amount>59.00</amount>
+                               <currency>INR</currency>  
+                          </unitPrice>
+                             <quantity>
+                                 <stock>100</stock>
+                                <measure>unit</measure>
+          </quantity>
+
+          </item>
+          </items>
+      </category>
+
+      <category id = "5"  name ="Beverages" >
+          <items>
+                             <item>
+                            <id>501</id>
+                            <name>Nescafe Coffee</name>
+                             <uom>gm</uom>  
+                             <unitSize>20</unitSize>
+                          <unitPrice>
+                               <amount>40.00</amount>
+                               <currency>INR</currency>  
+                          </unitPrice>
+                             <quantity>
+                                 <stock>700</stock>
+                                <measure>unit</measure>
+          </quantity>
+          </item>
+
+
+                             <item>
+                            <id>502</id>
+                            <name>Lipton Green Tea</name>
+                             <uom>gm</uom>  
+                             <unitSize>100</unitSize>
+                          <unitPrice>
+                               <amount>30.00</amount>
+                               <currency>INR</currency>  
+                          </unitPrice>
+                             <quantity>
+                                 <stock>700</stock>
+                                <measure>unit</measure>
+          </quantity>
+
+          </item>
+          </items>
+      </category>
+
+  </catalogue>
+
+
+
+
+
 
 
